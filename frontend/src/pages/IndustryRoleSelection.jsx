@@ -69,7 +69,7 @@ const IndustryRoleSelection = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white px-4 w-screen">
+    <div className="h-full min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white px-4 w-screen">
       <div className="w-full max-w-lg bg-white p-8 rounded-xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-blue-900 mb-6">Get Started</h2>
 
@@ -78,15 +78,13 @@ const IndustryRoleSelection = () => {
           <label htmlFor="industry" className="block text-lg font-medium text-gray-700">Select Industry</label>
           <select
             id="industry"
-            className="w-full p-3 mt-2 bg-gray-100 text-gray-800 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            className="w-full p-3 mt-2 bg-gray-100 text-gray-800 rounded-md border border-gray-300"
             value={industry}
             onChange={(e) => setIndustry(e.target.value)}
           >
             <option value="">Select an Industry</option>
             {industries.map((industry) => (
-              <option key={industry} value={industry}>
-                {industry}
-              </option>
+              <option key={industry} value={industry}>{industry}</option>
             ))}
           </select>
         </div>
@@ -97,15 +95,13 @@ const IndustryRoleSelection = () => {
             <label htmlFor="role" className="block text-lg font-medium text-gray-700">Select Role</label>
             <select
               id="role"
-              className="w-full p-3 mt-2 bg-gray-100 text-gray-800 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="w-full p-3 mt-2 bg-gray-100 text-gray-800 rounded-md border border-gray-300"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
               <option value="">Select a Role</option>
               {roles.map((role) => (
-                <option key={role} value={role}>
-                  {role}
-                </option>
+                <option key={role} value={role}>{role}</option>
               ))}
             </select>
           </div>
@@ -132,7 +128,7 @@ const IndustryRoleSelection = () => {
             <input
               type="text"
               id="userSkills"
-              className="w-full p-3 mt-2 bg-gray-100 text-gray-800 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="w-full p-3 mt-2 bg-gray-100 text-gray-800 rounded-md border border-gray-300"
               placeholder="e.g., JavaScript, Python, Data Analysis"
               value={userSkills}
               onChange={(e) => setUserSkills(e.target.value)}
@@ -153,7 +149,7 @@ const IndustryRoleSelection = () => {
           </div>
         )}
 
-        {/* AI Response */}
+        {/* AI Response Section */}
         {aiResponse && (
           <div className="mt-8 bg-green-50 p-4 rounded-md text-gray-900">
             <h3 className="text-xl font-bold mb-2 text-green-700">AI Recommendations</h3>

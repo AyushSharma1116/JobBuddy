@@ -1,14 +1,23 @@
-const express = require('express'); // Keep express import here
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const roadmapRoutes = require('./routes/roadmapRoutes');  // Import routes
-
+const express = require('express');
 const app = express();
 const PORT = 5000;
+const roadmapRoutes = require('./routes/roadmapRoutes');
+const cors = require('cors');
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use('/api/roadmap', roadmapRoutes); // Use the routes here
+app.use(express.json());
+app.use(
+  cors({
+    origin: 'http://localhost:5173', // Replace with your frontend URL
+    methods: ['GET','POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+)
+app.use('/api/roadmap', roadmapRoutes);
+
+app.get('/', (req, res) => {
+  res.send('Roadmap endpoint is live. Use POST to get recommendations.');
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
