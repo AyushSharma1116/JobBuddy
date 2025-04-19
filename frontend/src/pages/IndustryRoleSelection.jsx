@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const IndustryRoleSelection = () => {
   const [industry, setIndustry] = useState('');
   const [role, setRole] = useState('');
   const [roles, setRoles] = useState([]);
   const [skills, setSkills] = useState([]);
+  const [userSkills, setUserSkills] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [aiResponse, setAIResponse] = useState(null);
 
-  const industries = ['Technology', 'Healthcare', 'Finance', 'Marketing']; // Example industries
+  const industries = ['Technology', 'Healthcare', 'Finance', 'Marketing'];
   const rolesMap = {
     Technology: ['Software Developer', 'Data Scientist', 'AI Specialist'],
     Healthcare: ['Doctor', 'Nurse', 'Pharmacist'],
@@ -44,8 +48,28 @@ const IndustryRoleSelection = () => {
     }
   }, [role]);
 
+  const handleSubmit = async () => {
+    if (!industry || !role || !userSkills) {
+      alert('Please fill in all fields.');
+      return;
+    }
+    try {
+      setLoading(true);
+      const response = await axios.post('http://localhost:5000/api/roadmap', {
+        industry,
+        role,
+        currentSkills: userSkills.split(',').map(skill => skill.trim()),
+      });
+      setAIResponse(response.data);
+    } catch (err) {
+      console.error('Error fetching roadmap:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white flex items-center justify-center p-6 w-[99vw]">
       <div className="w-full max-w-lg bg-white p-8 rounded-xl shadow-lg">
         <h2 className="text-3xl font-bold text-center text-blue-900 mb-6">Get Started</h2>
 
@@ -96,6 +120,46 @@ const IndustryRoleSelection = () => {
                 <li key={index}>{skill}</li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {/* Current Skills Input */}
+        {role && (
+          <div className="mt-6">
+            <label htmlFor="userSkills" className="block text-lg font-medium text-gray-700">
+              Your Current Skills (comma-separated)
+            </label>
+            <input
+              type="text"
+              id="userSkills"
+              className="w-full p-3 mt-2 bg-gray-100 text-gray-800 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              placeholder="e.g., JavaScript, Python, Data Analysis"
+              value={userSkills}
+              onChange={(e) => setUserSkills(e.target.value)}
+            />
+          </div>
+        )}
+
+        {/* Submit Button */}
+        {role && (
+          <div className="mt-6 text-center">
+            <button
+              onClick={handleSubmit}
+              className="bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-500 transition duration-300"
+              disabled={loading}
+            >
+              {loading ? 'Analyzing...' : 'Get Roadmap'}
+            </button>
+          </div>
+        )}
+
+        {/* AI Response */}
+        {aiResponse && (
+          <div className="mt-8 bg-green-50 p-4 rounded-md text-gray-900">
+            <h3 className="text-xl font-bold mb-2 text-green-700">AI Recommendations</h3>
+            <p><strong>Recommended Job Profiles:</strong> {aiResponse.recommendedProfiles?.join(', ')}</p>
+            <p className="mt-2"><strong>Skills to Learn:</strong> {aiResponse.skillsToLearn?.join(', ')}</p>
+            <p className="mt-2 whitespace-pre-line"><strong>Roadmap:</strong> {aiResponse.roadmap}</p>
           </div>
         )}
 
