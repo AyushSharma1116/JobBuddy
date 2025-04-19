@@ -11,7 +11,7 @@ const Home = () => {
       <main className="flex flex-col items-center justify-center flex-grow px-4 mt-20 w-full">
         <div className="text-center animate-fade-in-up space-y-10 w-full max-w-5xl">
           <h1 className="text-4xl md:text-6xl font-extrabold drop-shadow-lg leading-tight">
-            Welcome to <span className="text-yellow-400">AI Job Mentor</span>
+            Welcome to <span className="text-yellow-400">Job Buddy</span>
           </h1>
 
           <p className="text-base md:text-xl text-gray-200 max-w-2xl mx-auto">
@@ -151,10 +151,10 @@ const Home = () => {
               <p className="text-sm text-gray-200">Job Role Match Accuracy</p>
             </div>
           </div>
-
-          <footer className="mt-20 text-center text-gray-400">
-            <p>&copy; 2023 AI Job Mentor. All rights reserved.</p>
-            <p>Crafted with ❤️ by the AI Job Mentor Team</p>
+          <hr/>
+          <footer className="mt-10 mb-5 text-center text-gray-400">
+            <p>&copy; 2024 Job Buddy. All rights reserved.</p>
+            <p>Crafted with ❤️ by the Hacknauts Team</p>
           </footer>
         </div>
       </main>
