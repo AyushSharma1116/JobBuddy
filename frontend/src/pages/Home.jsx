@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import HeroImg from '../assets/hero-image.avif';
 import Navbar from './Navbar';
+import IndustryRoleSelection from './IndustryRoleSelection';
 
 const Home = () => {
   return (
@@ -20,7 +21,7 @@ const Home = () => {
 
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              to="/register"
+              to="/industry-role"
               className="bg-yellow-400 text-blue-900 font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-yellow-300 hover:scale-105 transition-all duration-300"
             >
               Get Started
